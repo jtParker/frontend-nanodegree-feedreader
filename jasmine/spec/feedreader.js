@@ -27,32 +27,45 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+         it('should have a URL', function() {
+           for(let i = 0; i < allFeeds.length; i++) {
+             expect(allFeeds[i].url).toBeTruthy();
+           }
+         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+         it('should have a name', function() {
+           for(let i = 0; i < allFeeds.length; i++ ) {
+             expect(allFeeds[i].name).toBeDefined();
+             expect(allFeeds[i].name).toBeTruthy();
+           }
+         });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+    describe('The menu', function(){
+
+         it('should be hidden by default', function() {
+           let bodyElem = $('body');
+           expect(bodyElem).toHaveClass('menu-hidden');
+         });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+
+          it('should toggle the menu-hidden class when clicked', function() {
+            let bodyElem = $('body');
+            let menuIcon = $('.menu-icon-link');
+            menuIcon.click();
+            expect(bodyElem).not.toHaveClass('menu-hidden');
+            menuIcon.click();
+            expect(bodyElem).toHaveClass('menu-hidden');
+          });
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
