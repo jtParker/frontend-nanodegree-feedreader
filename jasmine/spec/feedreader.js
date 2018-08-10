@@ -59,14 +59,19 @@ $(function() {
 
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
     describe('New Feed Selection', function() {
-      
-    })
+      let prevFeed = $('.entry');
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+         beforeEach(function(done) {
+           loadFeed(0, function() {
+             done();
+           });
+         });
+
+         it('should show new content when a new a new feed is loaded', function() {
+           let newFeed = $('.entry');
+
+           expect(prevFeed === newFeed).toBe(false);
+         });
+    });
 }());
