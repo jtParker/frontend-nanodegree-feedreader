@@ -12,7 +12,8 @@ $(function() {
 
          it('should have a URL', function() {
            for(let i = 0; i < allFeeds.length; i++) {
-             expect(allFeeds[i].url).toBeTruthy();
+             expect(allFeeds[i].url).toBeDefined();
+             expect(allFeeds[i].url.length).not.toBe(0);
            }
          });
 
@@ -21,7 +22,8 @@ $(function() {
          it('should have a name', function() {
            for(let i = 0; i < allFeeds.length; i++ ) {
              expect(allFeeds[i].name).toBeDefined();
-             expect(allFeeds[i].name).toBeTruthy();
+             expect(typeof allFeeds[i].name).toBe('string');
+             expect(allFeeds[i].name.length).not.toBe(0);
            }
          });
     });
@@ -58,7 +60,7 @@ $(function() {
 // Test at least one article is shown in the feed
 
          it('should return at least one .entry', function(done) {
-           let feed = $('.feed');
+           let feed = $('.feed .entry');
            let childCount = feed[0].childElementCount;
            loadFeed(0, function() {
              expect(childCount).toBeGreaterThan(0);
@@ -69,18 +71,23 @@ $(function() {
     });
 
     describe('New Feed Selection', function() {
-      let prevFeed = $('.entry');
+      let prevFeed;
+      let newFeed;
 
          beforeEach(function(done) {
            loadFeed(0, function() {
-             done();
+             prevFeed = $('.feed').html();
+
+             loadFeed(1, function() {
+               newFeed = $('.feed').html();
+               done();
+             });
            });
          });
 
 // Test the content changes when a new feed is loaded
 
          it('should show new content when a new a new feed is loaded', function() {
-           let newFeed = $('.entry');
 
            expect(prevFeed === newFeed).toBe(false);
          });
